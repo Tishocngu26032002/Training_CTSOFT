@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orange Cloud 7</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background: #f5f5f5;
+            padding: 20px;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 956px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            background: #ff8c00;
+            padding: 10px 0;
+            color: white;
+        }
+
+        .progress-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .progress-step::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .progress-step:last-child::after {
+            display: none;
+        }
+
+        .form-container {
+            width: 90%;
+            margin: auto;
+            background-color: rgb(245, 245, 245);
+            margin-top: 20px;
+            border-style: solid;
+            border-radius: 12px;
+            border-width: 2px;
+            border-color: rgb(245, 201, 145);
+        }
+
+        .form-group {
+            border-bottom: 2px solid rgb(245, 201, 145);
+        }
+
+        .form-group label {
+            display: flex;
+            font-weight: bold;
+            justify-content: space-between;
+        }
+
+        .required {
+            color: #ff4444;
+            margin-left: 4px;
+            border-style: solid;
+            border-radius: 8px;
+            border-width: 2px;
+            padding: 0px 6px;
+        }
+
+        .radio-group {
+            margin: 10px 0;
+        }
+
+        .payment-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .payment-options img {
+            height: 24px;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"],
+        input[type="search"],
+        select,
+        textarea {
+            width: auto;
+            padding: 2px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 4px;
+            height: 24px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(252,176,69,1) 0%, rgba(253,29,29,1) 92%);
+            color: white;
+            border: none;
+            padding: 12px 188px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            font-size: 16px;
+        }
+
+        .submit-btn:hover {
+            background: #ff7600;
+        }
+
+        .arrow-icon {
+            width: 16px; /* Điều chỉnh kích thước hình ảnh */
+            height: 16px;
+        }
+        .card-input-group {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .form-group-1{
+            display: flex;
+            flex-direction: row;
+        }
+
+        .form-group-2{
+            display: flex;
+            flex-direction: row;
+        }
+
+        .radio-group-flex{
+            display: flex;
+        }
+
+        .radio-group-color-p{
+            color: rgb(245, 201, 145);
+        }
+        
+        .form-group-label-required{
+            margin: 14px 0px;
+        }
+
+        .payment-options-image{
+            display: flex;
+            gap: 10px;
+        }
+
+        .payment-text{
+            display: flex;
+            margin-left: 23px;
+            gap: 72px;
+        }
+
+        .payment-text>p{
+            width: -webkit-fill-available;
+        }
+
+        .color-input-red{
+            background-color: #f8d7da;
+            border-width: 1px!important;
+            border-color: red!important;
+        }
+
+        .color-select-red{
+            background-color: #f8d7da;
+            border-width: 1px;
+            border-color: red;
+        }
+
+        .text-test-2{
+            padding-top: 6px;
+        }
+
+        .form-group-left{
+            width: 36%;
+            border-right: 2px solid rgb(245, 215, 145);
+        }
+
+        .form-group-right{
+            width: 64%;
+        }
+
+        .text-font-size{
+            font-size: 22px;
+        }
+
+        .gap-10px{
+            gap: 10px;
+        }
+
+        .payment-text-select{
+            display: flex;
+        }
+
+        .form-group-3{
+            display: flex;
+            gap: 10p;
+        }
+        
+        .form-group-3-right{
+            display: flex;
+        }
+
+        .search-container {
+            height: 24px;
+            width: 24%;
+            margin-top: 4px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            border-radius: 4px;
+            background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(252,176,69,1) 0%, rgba(253,29,29,1) 92%);
+        }
+
+        #search {
+            padding-left: 34px; /* Khoảng cách cho icon ở bên trái */
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            background: url('images/search.png') no-repeat left center; /* Đặt icon từ thư mục images */
+            background-size: 16px 16px; /* Kích thước icon */
+            background-position: 14px center; /* Dịch icon sang phải 4px */
+        }
+
+        #search::placeholder {
+            color: white; /* Đổi màu chữ placeholder thành trắng */
+            opacity: 1; /* Đảm bảo màu trắng hiển thị đầy đủ */
+        }
+
+        .search-container span {
+            margin-left: 10px; /* Khoảng cách giữa icon và chữ "Search" */
+            color: #888;
+            font-size: 14px;
+        }
+
+        .search-container input{
+            margin: 0!important;
+        }
+
+        .scroll-container {
+            max-height: 200px;  /* Chiều cao cố định */
+            overflow-y: auto;   /* Cho phép cuộn dọc khi nội dung vượt quá chiều cao */
+            padding: 10px;      /* Thêm một chút padding nếu cần */
+            border: 1px solid #ddd; /* Thêm viền để dễ nhìn */
+            border-radius: 12px;
+            background-color: white;
+        }
+        /* Chỉnh thanh cuộn */
+        .scroll-container::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        /* Chỉnh màu sắc và kiểu thanh cuộn */
+        .scroll-container::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+
+        /* Chỉnh khi thanh cuộn đang hover */
+        .scroll-container::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Xóa mũi tên cuộn lên và xuống */
+        .scroll-container::-webkit-scrollbar-button {
+            display: none;
+        }
+
+        /* Chỉnh thanh cuộn dọc */
+        .scroll-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .label-lastest{
+            justify-content: start!important;
+        }
+
+        .image-option-1{
+            background-color: white;
+            padding: 2px;
+            border-radius: 6px;
+        }
+
+        .padding-option-1{
+            padding: 20px 20px 0 20px;
+        }
+
+        .padding-option-2{
+            padding: 20px 0px 0 20px;
+        }
+
+        .border-bottom-option{
+            border-bottom: 1px solid rgb(245, 201, 145);
+        }
+
+        .border-top-option{
+            border-top: 1px solid rgb(245, 201, 145);
+        }
+
+        .font-size-12{
+            font-size: 12px;
+        }
+
+        .pl-20px{
+            padding-left: 20px;
+        }
+
+        .plb-20px{
+            padding: 0px 0px 10px 20px;
+        }
+
+        .pb-10px{
+            padding-bottom: 10px;
+        }
+
+        .pt-10px{
+            padding-top: 10px;
+        }
+
+        .pr-10px{
+            padding-right: 10px;
+        }
+
+        .pr-20px{
+            padding-right: 20px;
+        }
+
+        .color-blue{
+            color: blue;
+        }
+
+        .width-68{
+            width: 68%!important;
+        }
+
+        .width-42{
+            width: 42%!important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Orange Cloud 7</h1>
+        </header>
+        
+        <div class="progress-bar">
+            <div class="progress-step">申込み入力</div>
+            <div class="progress-step">申込内容確認</div>
+            <div class="progress-step">申込完了</div>
+        </div>
+
+        <div class="form-container">
+            <form>
+                <div class="form-group form-group-1">
+                    <div class="form-group-1-left form-group-left">
+                        <h4 class="padding-option-1 border-bottom-option">label div left</h4>
+                        <div class="form-group-label-required">
+                            <label class="pl-20px pr-10px">meassage div left<span class="required">必須</span></label>
+                        </div>
+                    </div>
+                    <div class="form-group-right form-group-1-right">
+                        <label class="padding-option-1 border-bottom-option font-size-12">製品名1</label>
+                        <div class="radio-group pl-20px">
+                            <div class="border-bottom-option pb-10px">
+                                <div class="radio-group-flex">
+                                    <input type="radio" name="product" id="standard" checked>
+                                    <label for="standard">スタンダードコース</label>
+                                </div>
+                                <div>
+                                    <p><span class="radio-group-color-p">定価 399,999円 → 特別価格 399,999円</span>（税込み）</p>
+                                </div>
+                            </div>
+                            <div class="pt-10px">
+                                <div class="radio-group-flex">
+                                    <input type="radio" name="product" id="premium">
+                                    <label for="premium">プレミアムコース</label>
+                                </div>
+                                
+                                <div>
+                                    <p><span class="radio-group-color-p">定価 399,999円 → 特別価格 399,999円</span>（税込み）</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group form-group-2">
+                    <div class="form-group-2-left form-group-left">
+                        <label class="pl-20px pr-10px pt-10px">お支払い方法<span class="required">必須</span></label>
+                    </div>
+                    
+                    <div class="form-group-right form-group-2-right pt-10px pb-10px">
+                        <div class="payment-options pb-10px pl-20px">
+                            <input type="radio" name="payment" id="credit" checked>
+                            <div class="payment-options-image">
+                                <img class="image-option-1" src="images/visa.png" alt="visa">
+                                <img class="image-option-1" src="images/card.png" alt="card">
+                                <img class="image-option-1" src="images/jcb.png" alt="jcb">
+                                <img class="image-option-1" src="images/american-express.png" alt="american-express">
+                                <img class="image-option-1" src="images/credit-card.png" alt="credit-card">
+                                <label for="credit">クレジットカード</label>
+                            </div>
+                        </div>
+                        
+                        <div class="payment-text border-bottom-option pb-10px pl-20px">
+                            <div>
+                                <p>test 1</p>
+                            </div>
+                            <div>
+                                <input class="color-input-red" type="text" placeholder="text for input test 1">
+                            </div>
+                        </div>
+
+                        <div class="payment-text border-bottom-option pb-10px pt-10px pl-20px">
+                            <div>
+                                <p>test 2</p>
+                            </div>
+
+                            <div class="payment-text-select gap-10px">
+                                <select class="color-select-red" name="cars" id="cars">
+                                    <option value="volvo">Volvo</option>
+                                    <option value="saab">Saab</option>
+                                    <option value="mercedes">Mercedes</option>
+                                    <option value="audi">Audi</option>
+                                </select>
+                                <span class="text-font-size">/</span>
+                                <select class="color-select-red" name="cars" id="cars">
+                                    <option value="volvo">Volvo</option>
+                                    <option value="saab">Saab</option>
+                                    <option value="mercedes">Mercedes</option>
+                                    <option value="audi">Audi</option>
+                                </select>
+                                <span class="text-test-2">(adadasdasf)</span>
+                            </div>                          
+                        </div>
+
+                        <div class="payment-text pb-10px pt-10px pl-20px">
+                            <div>
+                                <p>test 3</p>
+                            </div>
+
+                            <div>
+                                <input class="color-input-red" type="text" placeholder="text for input test 3">
+                            </div>
+                        </div>
+
+                        <div class="payment-options border-bottom-option pb-10px pt-10px pl-20px border-top-option">
+                            <input type="radio" name="payment" id="credit" checked>
+                            <div class="payment-options-image">
+                                <img class="image-option-1" src="images/visa.png" alt="visa">
+                                <img class="image-option-1" src="images/card.png" alt="card">
+                                <img class="image-option-1" src="images/jcb.png" alt="jcb">
+                                <img class="image-option-1" src="images/american-express.png" alt="american-express">
+                                <img class="image-option-1" src="images/credit-card.png" alt="credit-card">
+                                <label for="credit">クレジットカード</label>
+                            </div>
+                        </div>
+
+                        <div class="payment-options pt-10px pl-20px">
+                            <input type="radio" name="payment" id="credit" checked>
+                            <div class="payment-options-image">
+                                <img class="image-option-1" src="images/bank.png" alt="visa">
+                                <label for="credit">クレジッ</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="form-group">
+                    <div class="form-group-3">
+                        <div class="form-group-left form-group-3-left border-bottom-option pl-20px pr-10px pt-10px pb-10px">
+                            <label>お支払い方法<span class="required">必須</span></label>
+                        </div>
+                        <div class="form-group-right form-group-3-right border-bottom-option pt-10px pb-10px pl-20px gap-10px">
+                            <input class="color-input-red" type="text" placeholder="ｗくぇｗくぇ">
+                            <input class="color-input-red" type="text" placeholder="クェーサー">
+                        </div>
+                    </div>
+                    <div class="form-group-3">
+                        <div class="form-group-left form-group-3-left border-bottom-option pl-20px pr-10px pt-10px pb-10px">
+                            <label>お支払い方法<span class="required">必須</span></label>
+                        </div>
+                        <div class="form-group-right form-group-3-right border-bottom-option pt-10px pb-10px pl-20px gap-10px">
+                            <input class="color-input-red" type="text" placeholder="ｗくぇｗくぇ">
+                            <input class="color-input-red" type="text" placeholder="クェーサー">
+                        </div>
+                    </div>
+                    <div class="form-group-3">
+                        <div class="form-group-left form-group-3-left border-bottom-option pl-20px pr-10px pt-10px pb-10px">
+                            <label>お支払い方法<span class="required">必須</span></label>
+                        </div>
+                        <div class="form-group-right form-group-3-right border-bottom-option pt-10px pb-10px pl-20px">
+                            <input class="color-input-red width-68" type="email" placeholder="tuyen@gmail.com">
+                        </div>
+                    </div>
+                    <div class="form-group-3">
+                        <div class="form-group-left form-group-3-left border-bottom-option pl-20px pr-10px pt-10px pb-10px">
+                            <label>お支払い方法</label>
+                        </div>
+                        <div class="form-group-right form-group-3-right border-bottom-option pt-10px pb-10px pl-20px gap-10px">
+                            <input type="text" name="phone" id="phone" placeholder="example: 0867828302">
+                            <div class="search-container">
+                                <input type="search" name="search" id="search" placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group-3">
+                        <div class="form-group-left form-group-3-left border-bottom-option pl-20px pr-10px pt-10px pb-10px">
+                            <label>お支払い方法<span class="required">必須</span></label>
+                        </div>
+                        <div class="form-group-right form-group-3-right border-bottom-option pt-10px pb-10px pl-20px">
+                            <select class="color-select-red width-42" name="cars" id="cars">
+                                <option value="volvo">Volvo</option>
+                                <option value="saab">Saab</option>
+                                <option value="mercedes">Mercedes</option>
+                                <option value="audi">Audi</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group-3">
+                        <div class="form-group-left form-group-3-left border-bottom-option pl-20px pr-10px pt-10px pb-10px">
+                            <label>お支払い方法<span class="required">必須</span></label>
+                        </div>
+                        <div class="form-group-right form-group-3-right border-bottom-option pt-10px pb-10px pl-20px">
+                            <input class="color-input-red width-68" type="text" placeholder="クェーサー">
+                        </div>
+                    </div>
+                    <div class="form-group-3">
+                        <div class="form-group-left form-group-3-left border-bottom-option pl-20px pr-10px pt-10px pb-10px">
+                            <label>お支払い方法<span class="required">必須</span></label>
+                        </div>
+                        <div class="form-group-right form-group-3-right border-bottom-option pt-10px pb-10px pl-20px">
+                            <input class="width-68" type="text" placeholder="クェーサー">
+                        </div>
+                    </div>
+                    <div class="form-group-3">
+                        <div class="form-group-left form-group-3-left border-bottom-option pl-20px pr-10px pt-10px pb-10px">
+                            <label>お支払い方法<span class="required">必須</span></label>
+                        </div>
+                        <div class="form-group-right form-group-3-right border-bottom-option pt-10px pb-10px pl-20px">
+                            <input class="color-input-red width-42" type="text" placeholder="クェーサー">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group pl-20px pr-20px pt-10px" style="border-bottom: none;">
+                    <label class="label-lastest pb-10px">利用規約<span class="required">必須</span></label>
+                    <div class="scroll-container">
+                        <p>
+                            With the exception of Nietzsche, no other musician has contributed so much to human sanity as has Louis Armstrong. He is mentioned twice in the Encyclopaedia Britannica as extremely sacred. There could be no greater figure for two important peoples who are and will be...With the exception of Nietzsche, no other musician has contributed so much to human sanity as has Louis Armstrong. He is mentioned twice in the Encyclopaedia Britannica as extremely sacred.With the exception of Nietzsche, no other musician has contributed so much to human sanity as has Louis Armstrong. He is mentioned twice in the Encyclopaedia Britannica as extremely sacred.With the exception of Nietzsche, no other musician has contributed so much to human sanity as has Louis Armstrong. He is mentioned twice in the Encyclopaedia Britannica as extremely sacred.With the exception of Nietzsche, no other musician has contributed so much to human sanity as has Louis Armstrong. He is mentioned twice in the Encyclopaedia Britannica as extremely sacred.
+
+                            With the exception of Nietzsche, no other musician has contributed so much to human sanity as has Louis Armstrong. He is mentioned twice in the Encyclopaedia Britannica as extremely sacred. There could be no greater figure for two important peoples who are and will be...With the exception of Nietzsche, no other musician has contributed so much to human sanity as has Louis Armstrong. He is mentioned twice in the Encyclopaedia Britannica as extremely sacred.With the exception of Nietzsche, no other musician has contributed so much to human sanity as has Louis Armstrong. He is mentioned twice in the Encyclopaedia Britannica as extremely sacred.With the exception of Nietzsche, no other musician has contributed so much to human sanity as has Louis Armstrong. He is mentioned twice in the Encyclopaedia Britannica as extremely sacred.With the exception of Nietzsche, no other musician has contributed so much to human sanity as has Louis Armstrong. He is mentioned twice in the Encyclopaedia Britannica as extremely sacred.
+                        </p>
+                    </div>
+                    <div class="radio-group payment-options">
+                        <input type="checkbox" id="agree">
+                        <label for="agree">利用規約に同意する<span class="color-blue">[利用規約に同意する]</span></label>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">次へ<img src="images/right-chevron.png" alt="arrow" class="arrow-icon"></button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
